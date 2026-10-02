@@ -16,5 +16,5 @@ export default function SignIn(){
  {sent&&<label>One-time code<input inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6,8}" required value={code} onChange={e=>setCode(e.target.value)} disabled={busy}/></label>}
  <button className="secondary" disabled={busy||!options.email}>{sent?'Verify and sign in':'Send email code'}</button></form>
  {sent&&<><button disabled={busy||cooldown>0} onClick={()=>void action('email')}>{cooldown?`Resend in ${cooldown}s`:'Resend code'}</button><button disabled={busy} onClick={()=>{setSent(false);setCode('')}}>Use another email</button></>}
- {!options.google&&!options.email&&<p>Sign-in is awaiting configuration.</p>}{message&&<p role="status">{message}</p>}<a className="muted" href="/">← Back to M-Chango</a></section>
+ {!options.google&&!options.email&&<p>Sign-in is awaiting configuration.</p>}{message&&<p role="status">{message}</p>}<p className="field-note">New here? <a href="/how-it-works">See how M-Chango works →</a></p><a className="muted" href="/">← Back to M-Chango</a></section>
 }
