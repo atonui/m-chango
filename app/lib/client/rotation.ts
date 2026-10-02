@@ -1,0 +1,1 @@
+export function prepareRotation(publicId:string,origin:string){const bytes=crypto.getRandomValues(new Uint8Array(32)),credential=btoa(String.fromCharCode(...bytes)).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'');return {credential,managementLink:new URL('/manage/'+publicId+'#'+credential,origin).href}}

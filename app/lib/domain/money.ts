@@ -1,0 +1,4 @@
+import {ValidationError} from './types';
+export function parseKes(input:string):number{if(typeof input!=='string'||! /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/.test(input.trim()))throw new ValidationError('Enter a valid KES amount with at most two decimals.',422,{amount:'Invalid amount'});const [whole,decimal='']=input.trim().replaceAll(',','').split('.');const minor=Number(whole)*100+Number(decimal.padEnd(2,'0'));if(!Number.isSafeInteger(minor)||minor<=0||minor>10000000000)throw new ValidationError('Amount must be between KSh 0.01 and KSh 100,000,000.',422,{amount:'Outside supported range'});return minor;}
+export const formatKes=(minor:number)=>'KSh '+new Intl.NumberFormat('en-KE',{minimumFractionDigits:minor%100?2:0,maximumFractionDigits:minor%100?2:0}).format(minor/100);
+export const formatTime=(iso:string)=>new Intl.DateTimeFormat('en-KE',{timeZone:'Africa/Nairobi',dateStyle:'medium',timeStyle:'short'}).format(new Date(iso))+' EAT';

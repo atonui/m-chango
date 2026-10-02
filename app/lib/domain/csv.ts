@@ -1,0 +1,3 @@
+import {type PrivateLedger} from './types';
+function cell(value:string){const safe=/^[\s\u0000-\u001f]*[=+\-@]/.test(value)||/^[\u0000-\u001f]/.test(value)?"'"+value:value;return '"'+safe.replaceAll('"','""')+'"'}
+export function ledgerCsv(l:PrivateLedger){return '\uFEFF'+['Name,Amount (KES),Source,Received at (UTC),Recorded at (UTC),Reference,Name hidden',...l.entries.filter(r=>!r.removedAt).map(r=>[cell(r.displayName),(r.amountMinor/100).toFixed(2),cell(r.source),cell(r.receivedAt??''),cell(r.recordedAt),cell(r.transactionReference??''),cell(r.hideName?'Yes':'No')].join(','))].join('\r\n')+'\r\n'}

@@ -1,0 +1,6 @@
+import {DomainError} from '../domain/types';
+export function generateCredential(){const bytes=crypto.getRandomValues(new Uint8Array(32));return btoa(String.fromCharCode(...bytes)).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'')}
+export async function hashCredential(token:string){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+export const cookieName=(id:string)=>'mchango_'+id;
+export function sessionCookie(req:Request,id:string,token:string){const host=new URL(req.url).hostname;return `${cookieName(id)}=${token}; Path=/api/fundraisers/${id}/manage; HttpOnly; SameSite=Strict; Max-Age=2592000${host==='localhost'||host==='127.0.0.1'?'':'; Secure'}`}
+export async function requireOrganizer(req:Request,id:string){const {database,authRecord}=await import('./repository');const a=await authRecord(database(),id);if(!a)throw new DomainError('Fundraiser not found.',404);const token=req.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith(cookieName(id)+'='))?.slice(cookieName(id).length+1)??'';if(!/^[A-Za-z0-9_-]{43}$/.test(token)||await hashCredential(token)!==a.credentialHash)throw new DomainError('Open your saved private management link.',401);return {fundraiserId:a.id,recordVersion:a.recordVersion}}

@@ -1,0 +1,2 @@
+type Timer={isVisible:()=>boolean;setInterval:(tick:()=>Promise<void>,ms:number)=>unknown;clearInterval:(id:any)=>void};
+export function startPublicRefresh<T>(load:()=>Promise<T>,apply:(value:T)=>void,fail:(error:unknown)=>void,timer:Timer){let active=true,running=false;const id=timer.setInterval(async()=>{if(!active||running||!timer.isVisible())return;running=true;try{const value=await load();if(active)apply(value)}catch(e){if(active)fail(e)}finally{running=false}},15000);return()=>{active=false;timer.clearInterval(id)}}

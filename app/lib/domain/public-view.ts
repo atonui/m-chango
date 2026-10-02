@@ -1,0 +1,3 @@
+import {type PrivateLedger,type PublicFundraiser} from './types';
+export function toPublicFundraiser(l:PrivateLedger):PublicFundraiser{const f=l.fundraiser;return {publicId:f.publicId,title:f.title,purpose:f.purpose,paymentNumber:f.paymentNumber,status:f.status,targetMinor:f.targetMinor,totalMinor:l.totalMinor,entryCount:l.entryCount,updatedAt:f.updatedAt,entries:l.entries.filter(r=>!r.removedAt).map(r=>({id:r.id,displayName:f.publicNamesEnabled&&!r.hideName?r.displayName:'Anonymous',amountMinor:r.amountMinor,receivedAt:r.receivedAt,recordedAt:r.recordedAt}))}}
+export const targetProgress=(total:number,target:number|null)=>target?Math.min(100,Math.round(total/target*10000)/100):0;

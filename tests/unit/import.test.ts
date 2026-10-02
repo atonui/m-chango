@@ -1,0 +1,22 @@
+import {describe,it,expect} from 'vitest';
+import {parseWhatsApp} from '../../app/lib/import/whatsapp';
+import {parseMpesa} from '../../app/lib/import/mpesa';
+import {classifyDuplicates} from '../../app/lib/import/duplicates';
+import {parseKes} from '../../app/lib/domain/money';
+import type {ContributionRecord} from '../../app/lib/domain/types';
+const entry:ContributionRecord={id:'one',fundraiserId:'private',displayName:'Amina',amountMinor:52900,transactionReference:'ABC123XYZ',privatePhone:null,receivedAt:null,source:'manual',hideName:false,removedAt:null,recordVersion:1,recordedAt:'2026-09-30',updatedAt:'2026-09-30'};
+export const sample=()=>{const amounts=[10100,1030,529,...Array(28).fill(1000),2000];return 'CONTRIBUTIONS\n'+amounts.map((a,i)=>`${i+1}. Member ${i+1} — KES ${a.toLocaleString('en-US')}`).join('\n').replace(/\n(?=(?:2[5-9]|3[0-2])\.)/g,' ')};
+describe('review parsers',()=>{
+ it('rejects complete malformed received amounts instead of shortening them',()=>{for(const amount of ['1.234','1.23.4','1,00','1e3']){const p=parseMpesa(`QK12ABCDEF Confirmed. You have received Ksh${amount} from AMINA on 30/9/26 at 1:15 PM.`);expect(p.rows).toHaveLength(0);expect(p.unrecognized).toHaveLength(1)}});
+ it('takes the received amount even when another Ksh value precedes it',()=>expect(parseMpesa('QK12ABCDEF Confirmed. Balance Ksh9,999.00. You have received Ksh529 from AMINA on 30/9/26 at 1:15 PM.').rows[0].amount).toBe('529'));
+ it('retains 32 entries, same-line entries and KSh 41,659',()=>{const p=parseWhatsApp(sample());expect(p.rows).toHaveLength(32);expect(p.rows.reduce((t,r)=>t+parseKes(r.amount),0)).toBe(4165900);expect(p.rows.slice(0,3).map(r=>parseKes(r.amount))).toEqual([1010000,103000,52900]);expect(p.rows.every(r=>r.receivedAt===null)).toBe(true);expect(p.unrecognized).toEqual([])});
+ it('separates Unicode names and currency variants',()=>expect(parseWhatsApp('1. Amina — KES 1,000 2. José - ksh 529').rows.map(r=>r.displayName)).toEqual(['Amina','José']));
+ it('does not silently save pledges or unknown suffixes',()=>{const p=parseWhatsApp('1. Amina KES 100 pledge 2. José KES 200 strange\nTotal 300');expect(p.rows.every(r=>!r.selected)).toBe(true);expect(p.rows[0].blockingError).toBeTruthy();expect(p.unrecognized.length).toBeGreaterThan(0)});
+ it('preserves unfamiliar text without inventing rows',()=>expect(parseWhatsApp('Amina promised help')).toEqual({rows:[],unrecognized:['Amina promised help']}));
+ it('rejects oversized text and 501 rows',()=>{expect(()=>parseWhatsApp('x'.repeat(50001))).toThrow();expect(()=>parseWhatsApp(Array.from({length:501},(_,i)=>`${i+1}. A KES 1`).join(' '))).toThrow()});
+ it('extracts received M-Pesa amount, ref, phone and Nairobi time',()=>{const p=parseMpesa('QK12ABCDEF Confirmed. You have received Ksh1,030.50 from AMINA ALI 0712345678 on 30/9/26 at 1:15 PM. New M-PESA balance is Ksh99,999.00.');expect(p.unrecognized).toEqual([]);expect(p.rows[0]).toMatchObject({displayName:'AMINA ALI',amount:'1,030.50',transactionReference:'QK12ABCDEF',privatePhone:'+254712345678',receivedAt:'2026-09-30T10:15:00.000Z'})});
+ it.each(['sent to','withdraw','failed','reversed','reversal'])('rejects %s',word=>expect(parseMpesa(`QK12ABCDEF Confirmed. ${word}. You have received Ksh100 from AMINA on 30/9/26 at 1:15 PM.`).rows).toHaveLength(0));
+ it('rejects invalid calendar dates and unfamiliar messages',()=>{expect(parseMpesa('QK12ABCDEF Confirmed. You have received Ksh100 from AMINA on 31/2/26 at 1:15 PM.').rows).toHaveLength(0);expect(parseMpesa('strange payment message').unrecognized).toHaveLength(1)});
+ it('blocks duplicate references including removed entries',()=>{const p=parseMpesa('ABC123XYZ Confirmed. You have received Ksh529 from Amina on 30/9/26 at 1:15 PM.');const r=classifyDuplicates(p.rows,[{...entry,removedAt:'2026-09-30'}])[0];expect(r.selected).toBe(false);expect(r.blockingError).toBeTruthy()});
+ it('warns on normalized name/amount match without blocking override',()=>{const r=classifyDuplicates(parseWhatsApp('1. ＡＭＩＮＡ KES 529').rows,[entry])[0];expect(r.selected).toBe(false);expect(r.blockingError).toBeNull();expect(r.issues.length).toBeGreaterThan(0)});
+});

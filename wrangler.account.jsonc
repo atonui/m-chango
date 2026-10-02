@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "m-chango-account",
+  "main": "build/workers-entry.ts",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "vars": {
+    "ACCOUNT_RELEASE": "1",
+    "APP_ORIGIN": "https://account-release.invalid",
+    "SUPABASE_URL": "https://ziamlejfurafauwuqcjk.supabase.co",
+    "GOOGLE_AUTH_READY": "0",
+    "EMAIL_AUTH_READY": "0",
+    "PRIVACY_NOTICE_READY": "0"
+  },
+  "ratelimits": [{"name":"AUTH_RATE_LIMIT","namespace_id":"1001","simple":{"limit":20,"period":60}}],
+  "observability": {"enabled":false}
+}

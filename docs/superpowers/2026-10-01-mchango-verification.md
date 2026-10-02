@@ -1,0 +1,16 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-09-30-mchango-mvp.md
+Recovery: execution environment was replaced before source push. Restore prior implementation from conversation and approved saved docs; do not invent completion from old tests.
+Ruling: new dedicated checkout on feat/mchango-mvp preserves isolation — existing checkout lost — cost: re-verification and reconstruction work.
+Ruling: no user-facing local preview or control-browser skill in this managed environment — test real Worker endpoints and client state; browser visual QA remains unavailable — cost: visual confidence is limited.
+Ruling: restore previously RED→GREEN code and tests, then run them freshly instead of repeating obsolete implementation tasks — recovery is not a new scope — cost: reconstructed code must pass the same acceptance gates.
+Ruling: JSON bulk insert/history reduce a 500-row import to four atomic statements, rather than 1,002 — stay within runtime limits — cost: JSON SQL is covered by real D1 integration tests.
+Ruling: public/private ledger reads use one D1 batch snapshot — names and totals must come from one consistent state — cost: none to the product.
+Ruling: the original complete contribution message could not be recovered, despite two targeted context searches — use a clearly synthetic 32-entry fixture covering the known total, unusual amounts and same-line structure — cost: exact original-text compatibility is not established.
+Ruling: use the compiled Worker directly in the pinned Miniflare/workerd runtime — Wrangler's live-reload proxy returns its own intermittent 503 after early body rejection, while direct serving passes repeated pooled-connection requests — cost: live-reload proxy behavior is excluded from the acceptance suite; production Worker and real migrated D1 are exercised without retrying writes.
+Ruling: finish through the already authorized owner-private Sites source/publishing workflow rather than a new PR/merge menu — the approved plan explicitly requests this delivery — cost: no additional integration approval gate.
+Final review: independent reviewer /root/final_review; no Critical, two Important, one Minor. Browser/layout/keyboard/real clipboard/hosted runtime findings were declined; local HTTP headers and durable runtime are now verified, browser interactions remain unverified under the prior preview ruling.
+Final: fixed M-Pesa amount truncation/wrong earlier balance — complete malformed amount and received amount regression tests RED→GREEN, unit suite 46/46.
+Final: fixed interrupted rotation lockout — saved replacement credential recovers access when rotation response is lost RED→GREEN, real Worker suite 12/12.
+Final: minor (deferred): overlapping manual and automatic public refreshes may briefly display an older snapshot until the next refresh; server ledger remains unchanged.
+Tasks 1–7: complete reconstructed implementation, unit 46/46, real Worker/D1 integration 12/12, tsc exit 0, production Sites build exit 0. Schema-only migration inspected and applied locally once; EXPLAIN confirms idx_contributions_fundraiser. Fundraiser HTML no-store/no-referrer/noindex/private-content checks pass.
+Task 8: review and build complete; private deployment pending.
