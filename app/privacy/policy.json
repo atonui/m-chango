@@ -1,0 +1,232 @@
+{
+  "intro": [
+    "Effective date: October 4th, 2026",
+    "This Privacy Policy explains how M-Chango collects, uses, shares and protects personal information when you use https://www.m-chango.com, create or manage a fundraiser, view a shared fundraiser or contact us. It also explains your choices and how to exercise your rights."
+  ],
+  "sections": [
+    {
+      "title": "1 Who we are",
+      "id": "section-1",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "M-Chango helps organizers record contributions, track totals and balances, and share fundraising updates. We do not receive, hold or transfer fundraising money through the current service."
+        }
+      ]
+    },
+    {
+      "title": "2 Information we collect",
+      "id": "section-2",
+      "blocks": [
+        {
+          "kind": "bullet",
+          "text": "Account information: your email address, account identifier, profile information provided through sign-in, and records needed to authenticate you and manage your sessions. If you use Google, we receive the identity information authorized through that sign-in process."
+        },
+        {
+          "kind": "bullet",
+          "text": "Fundraiser information: the title, description, payment destination or number, target amount, category, county where supplied, status, ownership and sharing settings."
+        },
+        {
+          "kind": "bullet",
+          "text": "Contribution information: names or aliases, amounts, dates where supplied, and optional phone numbers or transaction references. We also record changes needed to maintain the ledger and prevent duplicate submissions."
+        },
+        {
+          "kind": "bullet",
+          "text": "Information you provide voluntarily: imported records, feedback, survey responses, support correspondence and privacy requests."
+        },
+        {
+          "kind": "bullet",
+          "text": "Technical information: IP addresses, request and device or browser information available to our hosting and authentication services, authentication events, error information and security records needed to operate and protect the service."
+        },
+        {
+          "kind": "paragraph",
+          "text": "We receive information directly from you, from your sign-in provider, automatically when the service is used, and from organizers who enter information about contributors or beneficiaries. You do not need a M-Chango account for an organizer to include information about you in a fundraiser."
+        }
+      ]
+    },
+    {
+      "title": "3 How we use information",
+      "id": "section-3",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We use personal information to create and manage accounts, authenticate users, operate fundraiser ledgers, calculate totals, generate exports and sharing updates, respond to enquiries, process privacy requests, maintain reliable records, investigate errors and protect against unauthorized access or misuse."
+        },
+        {
+          "kind": "paragraph",
+          "text": "We may use voluntary feedback to improve the service. Optional product analytics are not currently enabled. Before enabling additional analytics, marketing or research uses, we will explain the purposes and provide any choices or consent required by law. We do not sell personal information or use contributor records for targeted advertising."
+        }
+      ]
+    },
+    {
+      "title": "4 Our grounds for processing",
+      "id": "section-4",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We process information only where we have an applicable lawful basis under Kenyan data protection law. Depending on the activity, this may include providing the service under our agreement with an organizer, complying with a legal obligation, or pursuing legitimate interests such as securing the service and responding to enquiries, after considering the rights and interests of affected individuals. Where consent is required, we will seek it and explain how to withdraw it."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Our agreement with an organizer does not automatically provide a lawful basis for every use of a contributor’s or beneficiary’s information. Organizers must have an appropriate basis for the information they enter and share. Sensitive personal information requires additional legal safeguards. Contact us if you believe information about you has been entered or shared improperly."
+        }
+      ]
+    },
+    {
+      "title": "5 Fundraiser sharing and WhatsApp",
+      "id": "section-5",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Public fundraiser links can be accessed and forwarded by people who receive them. They display the fundraiser information and contribution information permitted by the sharing settings, including payment destination details, amounts and totals."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Contributor names are hidden by default in public views and generated sharing updates. Where an organizer enables names, individual hide-name settings still apply. Private contributor phone numbers and transaction references are excluded from those public views and generated updates. Organizers can access private records and may download exports containing additional information."
+        },
+        {
+          "kind": "paragraph",
+          "text": "When an organizer copies or shares an update through WhatsApp or another service, that service and its recipients handle the shared information under their own practices. Messages and exports may be copied, forwarded or retained. Changing a setting or deleting information in M-Chango does not remove copies already shared outside the service."
+        }
+      ]
+    },
+    {
+      "title": "6 Information about other people",
+      "id": "section-6",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Organizers should explain the intended use and sharing of contributor information, use only the information needed for the fundraiser, keep it accurate and respond to concerns. Use aliases or hidden names where appropriate. Do not include identity documents, detailed medical information or unnecessary information about children in fundraiser descriptions or imported records."
+        }
+      ]
+    },
+    {
+      "title": "7 Service providers and disclosures",
+      "id": "section-7",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We use service providers to operate M-Chango. These include Supabase for authentication and database services, Railway for application hosting, and Resend for authentication email delivery. Google handles Google sign-in when you choose that option. These providers receive or process the information needed for their respective services."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Access to non-public information is limited to people and providers who need it for service operation, support, security or a lawful purpose. We may disclose information where required by law or a valid legal process, or where lawfully necessary to investigate misuse or protect people’s rights or safety."
+        },
+        {
+          "kind": "paragraph",
+          "text": "If operation of M-Chango transfers to another person or organization, we will assess the legal requirements for any transfer of information and provide the required notice. We will not treat a business transfer as permission for unrelated uses of your data."
+        }
+      ]
+    },
+    {
+      "title": "8 Processing outside Kenya",
+      "id": "section-8",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Our providers may store or process information outside Kenya, including in Europe and other countries in which they operate. We do not promise Kenya-only storage. Transfers must meet applicable Kenyan data protection requirements, including appropriate safeguards or another permitted ground. You may contact us for information about the countries and safeguards relevant to your data. [Insert verified hosting locations and applicable transfer safeguards before publication.]"
+        }
+      ]
+    },
+    {
+      "title": "9 Cookies and session information",
+      "id": "section-9",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We use necessary cookies and similar session information to keep you signed in, complete authentication and protect account access. Blocking these cookies may prevent sign-in or account functions from working. These necessary functions are separate from optional analytics. The current service does not enable optional advertising or product analytics trackers."
+        }
+      ]
+    },
+    {
+      "title": "10 Retention and deletion",
+      "id": "section-10",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We keep personal information for the purposes described in this policy and only as long as reasonably necessary, subject to applicable legal obligations. Account and fundraiser records remain available while needed to provide your account and ledger history. Closing a fundraiser or removing an entry from its visible ledger does not, by itself, erase all associated records."
+        },
+        {
+          "kind": "paragraph",
+          "text": "[Insert the approved retention period or review criteria for inactive accounts, closed fundraisers, contribution history, support correspondence and provider security logs before publication.]"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Free-text closing-survey feedback is scheduled for removal 180 days after its most recent submission. The outcome response may remain with the fundraiser record. Deletion completion receipts are scheduled to expire after 90 days. Scheduled removal is processed periodically rather than at the exact expiry instant."
+        },
+        {
+          "kind": "paragraph",
+          "text": "You may request account deletion through the account controls or contact us. Deletion is processed as a request; submission does not mean processing is already complete. We may retain limited information where lawfully necessary, for example to meet a legal obligation or resolve a dispute, and will explain relevant exceptions."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Deleted information may remain temporarily in restricted backup copies until those copies expire. [Insert the verified backup retention period and deletion handling before publication.] Copies held by WhatsApp recipients, organizers or other external parties are outside our direct control."
+        }
+      ]
+    },
+    {
+      "title": "11 Your rights and choices",
+      "id": "section-11",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Under applicable Kenyan data protection law, you have rights concerning your personal information. These include being informed about its use, accessing it, objecting to processing, and seeking correction or deletion of false or misleading information. Other requests, including withdrawal of consent and deletion where applicable, will be assessed under the relevant legal requirements."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Organizers can use account and fundraiser controls to manage their records and access available exports. Contributors and beneficiaries can raise concerns with the organizer or contact us directly; having no M-Chango account does not prevent you from making a privacy request."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Send requests to [working privacy email address]. Identify the fundraiser or account concerned and explain your request. We may ask for proportionate information to verify your identity and locate your records. Do not send identity documents or sensitive information unless specifically requested through an appropriate process."
+        },
+        {
+          "kind": "paragraph",
+          "text": "We will respond within the applicable legal time limits. If we cannot fulfil a request, we will explain the reason and any available next steps. Withdrawing consent does not affect processing that was lawful before withdrawal, and some information may still be processed on another applicable lawful ground."
+        },
+        {
+          "kind": "paragraph",
+          "text": "You may also complain to Kenya’s Office of the Data Protection Commissioner. Information about complaints and your rights is available at https://www.odpc.go.ke. You do not have to contact us first to exercise an available right to complain to the regulator."
+        }
+      ]
+    },
+    {
+      "title": "12 Security",
+      "id": "section-12",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We use access controls, protected sign-in sessions and encrypted network connections to help protect personal information. Access to organizer records is restricted by account permissions. No internet service or storage system can guarantee absolute security."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Protect your email and Google accounts, keep sign-in codes confidential and review information before sharing it. If we become aware of a personal data breach, we will assess it and notify the regulator and affected individuals where required by law."
+        }
+      ]
+    },
+    {
+      "title": "13 Children and sensitive information",
+      "id": "section-13",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Fundraisers may concern children or people facing medical or family difficulties. This does not make their personal information suitable for public disclosure. Organizers must meet applicable requirements for children’s and sensitive personal information, including parental or guardian involvement where required. We do not knowingly seek children’s information for optional analytics or advertising."
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you believe a child’s information or sensitive information has been recorded or shared improperly, contact us using the privacy address above so we can assess the concern and take appropriate action."
+        }
+      ]
+    },
+    {
+      "title": "14 Changes to this policy",
+      "id": "section-14",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "We will update this policy when our practices or legal requirements change and revise the effective date. For material changes, we will provide notice through the service or another appropriate channel. Where a new purpose requires consent or another legal step, publishing an updated policy alone will not replace that requirement."
+        }
+      ]
+    }
+  ]
+}
