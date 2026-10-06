@@ -2,8 +2,10 @@
 import {useEffect,useState} from 'react';
 import {apiJson} from '../lib/client/api';
 export default function SignIn(){
+ const [optionsLoading,setOptionsLoading]=useState(true),[optionsError,setOptionsError]=useState('');
  const [options,setOptions]=useState({google:false,email:false}),[email,setEmail]=useState(''),[code,setCode]=useState(''),[sent,setSent]=useState(false),[busy,setBusy]=useState(false),[message,setMessage]=useState(''),[cooldown,setCooldown]=useState(0);
- useEffect(()=>{let alive=true;void apiJson<{google:boolean;email:boolean}>('/api/auth/options').then(r=>{if(alive)setOptions(r)}).catch(e=>{if(alive)setMessage(e.message)});if(new URLSearchParams(window.location.search).has('error'))setMessage('Sign-in expired. Please try again.');return()=>{alive=false}},[]);
+ async function loadOptions(){setOptionsLoading(true);setOptionsError('');try{setOptions(await apiJson<{google:boolean;email:boolean}>('/api/auth/options'))}catch{setOptionsError('Unable to load sign-in options. Please try again.')}finally{setOptionsLoading(false)}}
+ useEffect(()=>{void loadOptions();if(new URLSearchParams(window.location.search).has('error'))setMessage('Sign-in expired. Please try again.')},[]);
  useEffect(()=>{if(!cooldown)return;const t=setTimeout(()=>setCooldown(cooldown-1),1000);return()=>clearTimeout(t)},[cooldown]);
  async function action(name:string){setBusy(true);setMessage('');try{
   if(name==='google'){const r=await apiJson<{url:string}>('/api/auth/google',{method:'POST',body:JSON.stringify({returnTo:'/dashboard'})});window.location.assign(r.url);return}
@@ -16,5 +18,5 @@ export default function SignIn(){
  {sent&&<label>One-time code<input inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6,8}" required value={code} onChange={e=>setCode(e.target.value)} disabled={busy}/></label>}
  <button className="secondary" disabled={busy||!options.email}>{sent?'Verify and sign in':'Send email code'}</button></form>
  {sent&&<><button disabled={busy||cooldown>0} onClick={()=>void action('email')}>{cooldown?`Resend in ${cooldown}s`:'Resend code'}</button><button disabled={busy} onClick={()=>{setSent(false);setCode('')}}>Use another email</button></>}
- {!options.google&&!options.email&&<p>Sign-in is awaiting configuration.</p>}{message&&<p role="status">{message}</p>}<p className="field-note">New here? <a href="/how-it-works">See how M-Chango works →</a></p><p className="field-note"><a href="/privacy">Privacy policy</a></p><a className="muted" href="/">← Back to M-Chango</a></section>
+ {optionsLoading&&<p role="status">Loading sign-in options…</p>}{optionsError&&<div role="alert" className="error">{optionsError}<button className="secondary" onClick={()=>void loadOptions()}>Try again</button></div>}{!optionsLoading&&!optionsError&&!options.google&&!options.email&&<p>Sign-in is temporarily unavailable. Please try again later.</p>}{message&&<p role="status">{message}</p>}<p className="field-note">New here? <a href="/how-it-works">See how M-Chango works →</a></p><p className="field-note"><a href="/privacy">Privacy policy</a></p><a className="muted" href="/">← Back to M-Chango</a></section>
 }
