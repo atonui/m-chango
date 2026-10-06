@@ -19,8 +19,7 @@
     "smoke:workers": "node scripts/smoke-workers.mjs",
     "build:railway": "node scripts/build-railway.mjs",
     "start:railway": "vinext start",
-    "smoke:railway": "node scripts/smoke-railway.mjs",
-    "ui:detect": "impeccable detect app"
+    "smoke:railway": "node scripts/smoke-railway.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -61,7 +60,6 @@
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.3.4",
-    "impeccable": "4.1.0",
     "json-rpc-2.0": "1.7.1",
     "raw-body": "3.0.2",
     "react-server-dom-webpack": "19.2.6",

@@ -1,5 +1,3 @@
-import {formatKes} from './money';
 import {type PrivateLedger,type PublicFundraiser} from './types';
 export function toPublicFundraiser(l:PrivateLedger):PublicFundraiser{const f=l.fundraiser;return {publicId:f.publicId,title:f.title,purpose:f.purpose,paymentNumber:f.paymentNumber,status:f.status,targetMinor:f.targetMinor,totalMinor:l.totalMinor,entryCount:l.entryCount,updatedAt:f.updatedAt,entries:l.entries.filter(r=>!r.removedAt).map(r=>({id:r.id,displayName:f.publicNamesEnabled&&!r.hideName?r.displayName:'Anonymous',amountMinor:r.amountMinor,receivedAt:r.receivedAt,recordedAt:r.recordedAt}))}}
 export const targetProgress=(total:number,target:number|null)=>target?Math.min(100,Math.round(total/target*10000)/100):0;
-export function targetSummary(total:number,target:number|null){if(!target)return {label:'Target',value:'Open',progress:0};const diff=target-total;if(diff<0)return {label:'Above target',value:formatKes(Math.abs(diff)),progress:100};return {label:diff===0?'Balance remaining':'Still to raise',value:formatKes(diff),progress:targetProgress(total,target)}}
