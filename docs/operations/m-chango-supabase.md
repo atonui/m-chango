@@ -8,7 +8,7 @@ Account JSON export includes owned fundraiser records, contributions, audit hist
 
 Deletion queues an idempotent owner request. The administrator-only worker runs every five minutes and atomically deletes owned fundraisers, linked data, the profile and Auth user. Auth sessions/refresh tokens cascade; stale JWTs cannot resolve a profile or recreate it. Submission is not completed deletion. The worker is limited to the sole-owner model and fails rather than deletes foreign shared records. Anonymous completion receipts expire after 90 days. Backup expiry and lawful exceptions need the final privacy policy.
 
-Privacy-choice UI remains disabled until `PRIVACY_NOTICE_READY=1` and the actual notice/lawful bases are reviewed. Analytics configuration remains disabled with no exposed ingestion RPC.
+Privacy-choice UI remains disabled until `PRIVACY_NOTICE_READY=1` and the actual notice/lawful bases are reviewed. Product analytics collection is enabled for the approved allowlisted events only; do not add fields containing names, phone numbers, transaction references, fundraiser descriptions, raw messages or tokens.
 
 Admin-only `private.expire_product_events()` clears expired 90-day event records. `private.expire_survey_feedback()` clears expired 180-day feedback. Both routines are scheduled daily at 00:15 UTC (03:15 Nairobi). M-Chango cron run logs expire after 30 days. The deletion schedule has an observed successful run; the first daily retention run has not yet occurred. Retention functions passed fixture boundary tests; never grant browser execution.
 
@@ -17,6 +17,12 @@ Admin-only `private.expire_product_events()` clears expired 90-day event records
 `scripts/load-test.mjs` performs public-summary reads only. It requires `MCHANGO_TEST_ENV=development`, matching `MCHANGO_TEST_ORIGIN`/`MCHANGO_ALLOWED_TEST_ORIGIN`, and synthetic `MCHANGO_TEST_PUBLIC_IDS`. Defaults: 100 concurrent readers, 900 seconds. Report only aggregate timings/statuses. Pass targets: p95 <1 second and errors <1%. This does not replace the planned mixed workload with writes/imports/exports or prove database capacity.
 
 `scripts/compare-account-exports.mjs` compares JSON data before/after a restore with order-independent object/array canonicalization. It reports only match status, not personal data. It does not itself export a database, restore one or verify auth identity recovery. Full restore rehearsal must separately verify ownership, row counts, totals, history and access policies in a fresh environment.
+
+## Monitoring and recovery
+
+Use `/api/health` for process liveness and `/api/health/ready` for Supabase reachability. External monitors should alert on both; readiness failures mean users may see sign-in or ledger errors even when the app process is alive.
+
+Use `docs/operations/admin-checklist.md` for daily, weekly and pre-launch checks. Use `docs/operations/recovery.md` for outage response, rollback, authentication failure and backup/restore notes.
 
 ## Remaining release gates
 

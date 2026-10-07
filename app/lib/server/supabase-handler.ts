@@ -8,6 +8,7 @@ import {parseMpesa} from '../import/mpesa';
 import {classifyDuplicates} from '../import/duplicates';
 import {parseKes} from '../domain/money';
 import {requestAccessToken} from './account-session';
+import {recordProductEvent,recordPublicProductEvent} from './analytics';
 
 /** Release API: Supabase validates bearer identity; capability links never authorize. */
 export function handleSupabaseRequest(req:Request,config:SupabaseConfig):Promise<Response>{return boundary(async()=>{
@@ -20,10 +21,18 @@ export function handleSupabaseRequest(req:Request,config:SupabaseConfig):Promise
  if(!publicId&&method==='POST'){
   if(!token)throw new DomainError('Sign in to manage your fundraisers.',401);
   const x=validateFundraiser(await jsonBody(req));
-  return response(await rpc.call('create_fundraiser',{payload:x}),201);
+  const created=await rpc.call<{publicId:string}>('create_fundraiser',{payload:x});
+  await recordProductEvent(rpc,{publicId:created.publicId,name:'fundraiser_created'});
+  return response(created,201);
  }
  if(!publicId)throw new DomainError('Not found.',404);
  if(!access&&method==='GET')return response(await rpc.call('public_summary',{public_id:publicId}));
+ if(access==='analytics'&&method==='POST'){
+  const b=object(await jsonBody(req));
+  if(b.name!=='contribution_list_copied'&&b.name!=='public_fundraiser_viewed')throw new DomainError('Invalid analytics event.',422);
+  await recordPublicProductEvent(rpc,{publicId,name:b.name});
+  return response({ok:true});
+ }
  if(access==='entries'&&method==='GET'){
   let cursor:unknown=null;
   if(url.searchParams.has('cursor'))try{cursor=JSON.parse(url.searchParams.get('cursor')!)}catch{throw new DomainError('Invalid page cursor.',422)}
@@ -67,12 +76,20 @@ export function handleSupabaseRequest(req:Request,config:SupabaseConfig):Promise
   })});
  }
  const args={public_id:publicId,expected_version:version(b.expectedVersion)};
- if(!action&&method==='PATCH')return response(await rpc.call('update_fundraiser',{...args,payload:validateFundraiser(b)}));
+ if(!action&&method==='PATCH'){
+  const updated=await rpc.call('update_fundraiser',{...args,payload:validateFundraiser(b)});
+  if(b.status==='closed')await recordProductEvent(rpc,{publicId,name:'fundraiser_closed'});
+  return response(updated);
+ }
  if((action==='import'||action==='contributions'&&!eid)&&method==='POST'){
   if(b.confirmedReceived!==true)throw new DomainError('Confirm these contributions were received.');
   const raw=action==='import'?b.rows:[b];
   if(!Array.isArray(raw)||raw.length<1||raw.length>500)throw new DomainError('Select 1–500 valid entries.');
-  return response(await rpc.call<CommitResult>('commit_contributions',{...args,operation_key:operationKey(b.idempotencyKey),rows:raw.map(validateContribution)}),201);
+  const rows=raw.map(validateContribution);
+  const committed=await rpc.call<CommitResult>('commit_contributions',{...args,operation_key:operationKey(b.idempotencyKey),rows});
+  if(action==='import')await recordProductEvent(rpc,{publicId,name:'import_completed',source:rows[0]?.source,rowCount:rows.length});
+  else await recordProductEvent(rpc,{publicId,name:'contribution_added',source:rows[0]?.source});
+  return response(committed,201);
  }
  if(action==='contributions'&&eid&&method==='PATCH'){
   if(b.action==='edit')return response(await rpc.call('edit_contribution',{...args,entry_id:eid,payload:validateContribution(b)}));

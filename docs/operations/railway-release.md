@@ -4,7 +4,7 @@ Railway hosts the Node application. Supabase continues to provide PostgreSQL and
 
 ## Prepared build
 
-`pnpm run build:railway` builds using Vinext's Node runtime with a separate Vite configuration. `pnpm run start:railway` listens on Railway's injected PORT, on all interfaces. `railway.toml` selects these commands and `/api/health` as a process-liveness check. The health endpoint does not prove database connectivity.
+`pnpm run build:railway` builds using Vinext's Node runtime with a separate Vite configuration. `pnpm run start:railway` listens on Railway's injected PORT, on all interfaces. `railway.toml` selects these commands and `/api/health` as a process-liveness check. The liveness endpoint does not prove database connectivity; monitor `/api/health/ready` separately for Supabase reachability.
 
 The Node build replaces the Workers environment import with runtime process environment. No D1 database is attached. ACCOUNT_RELEASE=1 rejects the old pilot API and management paths. Keep the account flag set in every Railway environment.
 
@@ -32,6 +32,7 @@ Never supply a Supabase service-role key to this application. Keep both auth-rea
 5. Configure email delivery, OTP template and sending domain. Verify real delivery before EMAIL_AUTH_READY=1. Verify Google provider credentials before GOOGLE_AUTH_READY=1.
 6. Test real Google and email sign-in, refresh, global logout, rejected revoked sessions, owner isolation, anonymous pages, contribution lifecycle and WhatsApp export. Use disposable test fundraisers and accounts.
 7. Record hosted latency/error/load results separately from existing SQL benchmarks. Verify external alert delivery and recovery independently before launch.
+8. Configure external monitoring against both `/api/health` and `/api/health/ready`. The first proves the process responds; the second proves required Supabase configuration and API reachability.
 
 ## Evidence, 2026-10-02
 

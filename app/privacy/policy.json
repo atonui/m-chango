@@ -1,6 +1,6 @@
 {
   "intro": [
-    "Effective date: October 4th, 2026",
+    "Effective date: October 6th, 2026",
     "This Privacy Policy explains how M-Chango collects, uses, shares and protects personal information when you use https://www.m-chango.com, create or manage a fundraiser, view a shared fundraiser or contact us. It also explains your choices and how to exercise your rights."
   ],
   "sections": [
@@ -54,7 +54,7 @@
         },
         {
           "kind": "paragraph",
-          "text": "We may use voluntary feedback to improve the service. Optional product analytics are not currently enabled. Before enabling additional analytics, marketing or research uses, we will explain the purposes and provide any choices or consent required by law. We do not sell personal information or use contributor records for targeted advertising."
+          "text": "We use limited product analytics to understand whether core features are working and useful. These analytics record events such as fundraiser creation, contribution entry, import use, public fundraiser page views and copying a WhatsApp contribution list. Product analytics do not include contributor names, phone numbers, payment references, fundraiser descriptions, message contents or authentication secrets. Before using analytics for marketing, research or other new purposes, we will explain the purposes and provide any choices or consent required by law. We do not sell personal information or use contributor records for targeted advertising."
         }
       ]
     },
@@ -134,7 +134,7 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "We use necessary cookies and similar session information to keep you signed in, complete authentication and protect account access. Blocking these cookies may prevent sign-in or account functions from working. These necessary functions are separate from optional analytics. The current service does not enable optional advertising or product analytics trackers."
+          "text": "We use necessary cookies and similar session information to keep you signed in, complete authentication and protect account access. Blocking these cookies may prevent sign-in or account functions from working. Product analytics are recorded through our own service endpoints and are limited to the events described in this policy. The current service does not enable optional advertising trackers."
         }
       ]
     },
@@ -210,7 +210,7 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Fundraisers may concern children or people facing medical or family difficulties. This does not make their personal information suitable for public disclosure. Organizers must meet applicable requirements for children’s and sensitive personal information, including parental or guardian involvement where required. We do not knowingly seek children’s information for optional analytics or advertising."
+          "text": "Fundraisers may concern children or people facing medical or family difficulties. This does not make their personal information suitable for public disclosure. Organizers must meet applicable requirements for children’s and sensitive personal information, including parental or guardian involvement where required. We do not knowingly seek children’s information for analytics or advertising."
         },
         {
           "kind": "paragraph",

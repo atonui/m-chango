@@ -9,6 +9,7 @@ function handle(req:Request){
  const config={url:bindings.SUPABASE_URL,publishableKey:bindings.SUPABASE_PUBLISHABLE_KEY};
  const parts=new URL(req.url).pathname.split('/').filter(Boolean).slice(2);
  if(req.method==='GET'&&parts.length>0&&(parts.length===1||parts[1]==='entries'))return handleSupabaseRequest(req,config);
+ if(req.method==='POST'&&parts.length===2&&parts[1]==='analytics')return handleSupabaseRequest(req,config);
  return withOrganizer(req,config,verified=>handleSupabaseRequest(verified,config));
 }
 export const GET=handle;export const POST=handle;export const PATCH=handle;

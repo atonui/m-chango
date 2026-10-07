@@ -4,6 +4,7 @@ import {apiJson} from '../lib/client/api';
 import {type PublicFundraiser} from '../lib/domain/types';
 import {formatKes} from '../lib/domain/money';
 import {targetSummary} from '../lib/domain/public-view';
+import {trackPublicFundraiserViewed} from '../lib/client/analytics';
 type Summary=Omit<PublicFundraiser,'entries'>&{recordVersion:number};
 type Cursor={recordedAt:string;id:string}|null;
 type Page={entries:PublicFundraiser['entries'];nextCursor:Cursor};
@@ -12,6 +13,7 @@ export default function AccountPublicLedger({publicId}:{publicId:string}){
  const currentVersion=useRef<number|null>(null),requestGeneration=useRef(0);
  const path='/api/ledger/'+publicId;
  useEffect(()=>{
+  void trackPublicFundraiserViewed(publicId);
   let alive=true;setSummary(null);setPage(null);currentVersion.current=null;
   async function refresh(){const generation=++requestGeneration.current;try{
    const latest=await apiJson<Summary>(path);

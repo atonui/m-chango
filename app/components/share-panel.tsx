@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {type PublicFundraiser} from '../lib/domain/types';
 import {whatsAppSummary,whatsAppContributorList} from '../lib/domain/summary';
 import {sharePublicSummary} from '../lib/client/api';
+import {trackContributionListCopied} from '../lib/client/analytics';
 
 export default function SharePanel({view,publicPath='/f/'+view.publicId}:{view:PublicFundraiser;publicPath?:string}){
  const [notice,setNotice]=useState(''),[summaryNotice,setSummaryNotice]=useState('');
@@ -15,6 +16,7 @@ export default function SharePanel({view,publicPath='/f/'+view.publicId}:{view:P
   <textarea aria-label="Contribution list for WhatsApp" className="share-copy" readOnly rows={8} value={list} onFocus={e=>e.target.select()}/>
   <button className="primary" onClick={async()=>{
    const result=await sharePublicSummary(list,{clipboard:navigator.clipboard});
+   if(result.copied)void trackContributionListCopied(view.publicId);
    setNotice(result.copied?'List copied. Paste it into WhatsApp.':'Select the list above and copy it manually.');
   }}>Copy contribution list</button>
   {notice&&<p role="status" className="field-note">{notice}</p>}

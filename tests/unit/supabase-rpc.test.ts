@@ -33,3 +33,13 @@ it('does not attach expired account tokens to public fundraiser reads',async()=>
  expect(await new SupabaseRpc({url,publishableKey:'test'},'expired-token').call('public_summary',{public_id:'test'})).toEqual({totalMinor:100});
  expect(authorization).toBeUndefined();
 });
+it('allows anonymous public analytics without attaching an account token',async()=>{
+ let authorization:string|undefined,path:string|undefined;
+ const url=await endpoint((req,res)=>{path=req.url;authorization=req.headers.authorization;res.setHeader('Content-Type','application/json');res.end('{"recorded":false}')});
+ expect(await new SupabaseRpc({url,publishableKey:'test'},'expired-token').call('record_public_product_event',{public_id:'test',event_name:'public_fundraiser_viewed'})).toEqual({recorded:false});
+ expect(path).toBe('/rest/v1/rpc/record_public_product_event');
+ expect(authorization).toBeUndefined();
+});
+it('requires identity for organizer analytics events',async()=>{
+ await expect(new SupabaseRpc({url:'https://example.test',publishableKey:'test'}).call('record_product_event',{})).rejects.toMatchObject({status:401});
+});
