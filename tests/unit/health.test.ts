@@ -11,7 +11,7 @@ it('checks Supabase reachability without exposing secrets',async()=>{
  const fetcher=vi.fn(async()=>new Response('{}',{status:200}));
  const result=await readiness({url:'https://example.supabase.co',publishableKey:'publishable'},fetcher);
  expect(result).toEqual({status:'ok',checks:{supabase:'ok'}});
- expect(fetcher).toHaveBeenCalledWith('https://example.supabase.co/rest/v1/',expect.objectContaining({headers:{apikey:'publishable'},method:'GET'}));
+ expect(fetcher).toHaveBeenCalledWith('https://example.supabase.co/auth/v1/health',expect.objectContaining({headers:{apikey:'publishable'},method:'GET'}));
  expect(JSON.stringify(result)).not.toContain('publishable');
 });
 
