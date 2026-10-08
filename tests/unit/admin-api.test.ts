@@ -1,6 +1,6 @@
 import {afterEach,expect,it,vi} from 'vitest';
 import {adminRpc} from '../../app/lib/server/admin';
-import {handleAdminFundraisers,handleAdminOverview,handleAdminUsers} from '../../app/lib/server/admin-routes';
+import {handleAdminFundraisers,handleAdminOperations,handleAdminOverview,handleAdminUsers} from '../../app/lib/server/admin-routes';
 
 afterEach(()=>vi.unstubAllGlobals());
 
@@ -42,4 +42,11 @@ it('rejects invalid admin list page sizes before hitting Supabase',async()=>{
  const response=await handleAdminUsers(new Request('https://app.test/api/admin/users?limit=101',{headers:{Authorization:'Bearer user-token'}}),{url:'https://db.test',publishableKey:'public'});
  expect(response.status).toBe(422);
  expect(fetchSpy).not.toHaveBeenCalled();
+});
+
+it('loads admin operations through the guarded RPC boundary',async()=>{
+ vi.stubGlobal('fetch',vi.fn(async()=>Response.json({privacy:{pendingDeletionRequests:1},analytics:{enabled:true},audit:[]})));
+ const response=await handleAdminOperations(new Request('https://app.test/api/admin/operations',{headers:{Authorization:'Bearer user-token'}}),{url:'https://db.test',publishableKey:'public'});
+ expect(response.status).toBe(200);
+ expect(fetch).toHaveBeenCalledWith('https://db.test/rest/v1/rpc/admin_operations',expect.any(Object));
 });

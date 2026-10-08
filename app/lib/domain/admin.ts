@@ -12,6 +12,7 @@ export type AdminFundraiserRow={id:string;publicId:string;title:string;status:st
 export type AdminUserRow={id:string;displayName:string;fundraiserCount:number;totalMinor:number;lastFundraiserAt:string|null;createdAt:string};
 export type AdminFundraiserPage={fundraisers:AdminFundraiserRow[];nextCursor:unknown};
 export type AdminUserPage={users:AdminUserRow[];nextCursor:unknown};
+export type AdminOperations={privacy:{pendingDeletionRequests:number;processingDeletionRequests:number;completedDeletionRequests:number;privacyChoices:number;researchOptIns:number;marketingOptIns:number};analytics:{enabled:boolean;eventsLast24h:number;eventsLast7d:number;oldestEventExpiresAt:string|null};retention:{deletionReceipts:number;staleDeletionReceipts:number};audit:{id:string;action:string;targetType:string|null;targetId:string|null;createdAt:string;metadata:Record<string,unknown>}[]};
 type CardTone='main'|'default'|'attention';
 
 function titleCase(value:string){

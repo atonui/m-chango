@@ -33,3 +33,9 @@ export function handleAdminUsers(req:Request,bindings:AdminRouteBindings){
   return response(await adminRpc(req,'admin_users',listPayload(req),config(bindings)));
  });
 }
+
+export function handleAdminOperations(req:Request,bindings:AdminRouteBindings){
+ return boundary(async()=>{
+  return response(await adminRpc(req,'admin_operations',{},config(bindings)));
+ });
+}
