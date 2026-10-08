@@ -2,7 +2,7 @@ import {DomainError} from '../domain/types';
 
 export interface SupabaseConfig {url:string;publishableKey:string}
 const publicCalls=new Set(['public_summary','public_entries','record_public_product_event']);
-const calls=new Set([...publicCalls,'create_fundraiser','commit_contributions','edit_contribution','set_contribution_removed','update_fundraiser','export_snapshot','list_owned_fundraisers','private_ledger_page','check_import_duplicates','save_closing_survey','get_privacy_choices','save_privacy_choices','export_account_data','request_account_deletion','record_product_event','admin_overview']);
+const calls=new Set([...publicCalls,'create_fundraiser','commit_contributions','edit_contribution','set_contribution_removed','update_fundraiser','export_snapshot','list_owned_fundraisers','private_ledger_page','check_import_duplicates','save_closing_survey','get_privacy_choices','save_privacy_choices','export_account_data','request_account_deletion','record_product_event','admin_overview','admin_fundraisers','admin_users']);
 
 /** Per-request transport. Never store a user token in a shared singleton. */
 export class SupabaseRpc {

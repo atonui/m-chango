@@ -8,6 +8,10 @@ type AdminCounts={
 };
 type AdminEnvironment={appEnv?:string;commitSha?:string;deployedAt?:string};
 export type AdminOverview={role:string;environment:AdminEnvironment;counts:AdminCounts};
+export type AdminFundraiserRow={id:string;publicId:string;title:string;status:string;totalMinor:number;entryCount:number;category:string|null;county:string|null;ownerDisplayName:string|null;createdAt:string;updatedAt:string};
+export type AdminUserRow={id:string;displayName:string;fundraiserCount:number;totalMinor:number;lastFundraiserAt:string|null;createdAt:string};
+export type AdminFundraiserPage={fundraisers:AdminFundraiserRow[];nextCursor:unknown};
+export type AdminUserPage={users:AdminUserRow[];nextCursor:unknown};
 type CardTone='main'|'default'|'attention';
 
 function titleCase(value:string){
