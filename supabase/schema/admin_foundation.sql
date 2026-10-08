@@ -66,7 +66,8 @@ as $$ declare actor uuid; admin_role text; result jsonb; begin
   'counts',jsonb_build_object(
    'fundraisers',(select count(*) from public.fundraisers),
    'profiles',(select count(*) from public.profiles),
-   'pendingDeletionRequests',(select count(*) from private.account_deletion_requests where status='pending')
+   'pendingDeletionRequests',(select count(*) from private.account_deletion_requests where status='pending'),
+   'totalContributionsMinor',(select coalesce(sum(amount_minor),0) from public.contributions where removed_at is null)
   )
  );
  return result;

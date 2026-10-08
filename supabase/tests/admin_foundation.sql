@@ -47,6 +47,7 @@ do $$ declare result jsonb; begin
  result:=public.admin_overview();
  if result->>'role'<>'owner' then raise exception 'FAIL: owner overview role'; end if;
  if result->'environment' is null then raise exception 'FAIL: overview missing environment object'; end if;
+ if result->'counts'->>'totalContributionsMinor' is null then raise exception 'FAIL: overview missing total contributions'; end if;
  perform private.record_admin_audit('admin_test','fixture','ok','{"section":"overview"}');
  begin
   perform private.record_admin_audit('admin_test','fixture','bad','{"phone":"0700000000"}');
