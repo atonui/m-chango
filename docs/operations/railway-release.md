@@ -35,6 +35,7 @@ Never supply a Supabase service-role key to this application. Keep both auth-rea
 6. Test real Google and email sign-in, refresh, global logout, rejected revoked sessions, owner isolation, anonymous pages, contribution lifecycle and WhatsApp export. Use disposable test fundraisers and accounts.
 7. Record hosted latency/error/load results separately from existing SQL benchmarks. Verify external alert delivery and recovery independently before launch.
 8. Configure external monitoring against both `/api/health` and `/api/health/ready`. The first proves the process responds; the second proves required Supabase configuration and API reachability.
+9. For the admin panel rollout, apply the admin migrations and first-owner grant documented in `docs/operations/environments-and-admin.md`, then verify `/admin` with an owner account and a non-admin account.
 
 ## Evidence, 2026-10-02
 

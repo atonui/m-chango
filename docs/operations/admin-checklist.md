@@ -20,11 +20,14 @@ Use this checklist before launch, after every deploy, and during the first weeks
 
 ## Weekly operations check
 
+- Open `/admin` as the owner admin and confirm overview, recent fundraisers, recent users and operations all load.
+- Confirm the `/admin` environment badge matches the Railway environment and the commit badge matches the deployed commit when configured.
 - Review Railway deploy history and confirm the live deployment is the expected commit.
 - Review Railway metrics for restart loops, memory pressure and sustained 5xx responses.
 - Review Supabase Auth logs for unusual failure bursts.
 - Review Supabase database logs for slow queries, function errors and cron failures.
 - Check Supabase security advisors and performance advisors.
+- Confirm admin list views do not expose payment numbers, auth subjects, contributor phone numbers, transaction references or raw import text.
 - Confirm scheduled jobs have recent successful runs:
   - `m-chango-account-deletion`
   - `m-chango-data-retention`
