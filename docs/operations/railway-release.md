@@ -11,6 +11,7 @@ The Node build replaces the Workers environment import with runtime process envi
 ## Runtime variables
 
 - ACCOUNT_RELEASE=1
+- APP_ENV=production for Railway production; APP_ENV=staging for Railway staging. The admin panel uses this for the visible environment badge.
 - SUPABASE_URL=https://ziamlejfurafauwuqcjk.supabase.co
 - SUPABASE_PUBLISHABLE_KEY: the development project's publishable key, supplied through Railway variables
 - APP_ORIGIN: exact HTTPS Railway development origin, no trailing slash
@@ -20,6 +21,7 @@ The Node build replaces the Workers environment import with runtime process envi
 - GOOGLE_AUTH_READY=0
 - EMAIL_AUTH_READY=0
 - PRIVACY_NOTICE_READY=0 until the published notice is reviewed
+- RAILWAY_GIT_COMMIT_SHA: set when available from Railway or CI; if absent, admin deploy metadata shows no commit SHA rather than guessing
 
 Never supply a Supabase service-role key to this application. Keep both auth-ready flags at zero for the first deployment.
 
