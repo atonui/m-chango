@@ -9,9 +9,9 @@ export default function PrivacyControls(){
  {!ready&&<p>Optional choices will become available when the privacy notice is ready.</p>}
  <label><input type="checkbox" disabled={busy||(!ready&&!research)} checked={research} onChange={e=>setResearch(e.target.checked)}/> Optional research</label>
  <label><input type="checkbox" disabled={busy||(!ready&&!marketing)} checked={marketing} onChange={e=>setMarketing(e.target.checked)}/> Marketing messages</label>
- <button disabled={busy||(!ready&&(research||marketing))} onClick={()=>void submit('choices')}>Save choices</button><hr/>
- <a href="/api/account/privacy?action=export">Download account data</a><p>The export contains private information. Store it securely.</p><hr/>
+ <button className="primary" aria-busy={busy} disabled={busy||(!ready&&(research||marketing))} onClick={()=>void submit('choices')}>{busy?'Saving…':'Save choices'}</button><hr/>
+ <a className="nav-link" href="/api/account/privacy?action=export">Download account data</a><p>The export contains private information. Store it securely.</p><hr/>
  <h2>Request account deletion</h2><p>Deletion is processed automatically, normally within five minutes. It removes your fundraisers and private records and ends your sessions. Download your data first.</p>
- <label>Type REQUEST DELETION<input value={confirmation} onChange={e=>setConfirmation(e.target.value)}/></label><button disabled={busy||confirmation!=='REQUEST DELETION'} onClick={()=>void submit('delete-request')}>Submit deletion request</button>{message&&<p role="status">{message}</p>}
+ <label>Type REQUEST DELETION<input value={confirmation} onChange={e=>setConfirmation(e.target.value)}/></label><button className="destructive" aria-busy={busy} disabled={busy||confirmation!=='REQUEST DELETION'} onClick={()=>void submit('delete-request')}>{busy?'Requesting deletion…':'Request account deletion'}</button>{message&&<p role="status">{message}</p>}
  </section>
 }

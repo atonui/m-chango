@@ -218,3 +218,109 @@ h3 { font-family: var(--font-sans); font-size: var(--type-h3); font-weight: 600;
   /* Keep editable controls at 16px to avoid iOS focus zoom. */
   input, textarea, select { font-size: 1rem !important; }
 }
+
+/* Button system: action hierarchy, states, and touch targets. */
+:root {
+  --button-border: #89998b;
+  --button-focus: #234c38;
+  --button-danger: #a43932;
+}
+.primary, .secondary, .tertiary, .destructive, .auth-google,
+[data-slot="button"], [data-slot="alert-dialog-action"], [data-slot="alert-dialog-cancel"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-width: 44px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: .625rem 1rem;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  font-family: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+.primary { background: #234c38; color: #fff; border-color: #234c38; }
+.primary:hover:not(:disabled) { background: #315e43; border-color: #315e43; }
+.primary:active:not(:disabled) { background: #193d2b; border-color: #193d2b; }
+.secondary { background: #fff; color: #234c38; border-color: var(--button-border); }
+.secondary:hover:not(:disabled) { background: #eef1e9; border-color: #637967; }
+.secondary:active:not(:disabled) { background: #e1e8dc; border-color: #234c38; }
+.tertiary { background: transparent; color: #234c38; }
+.tertiary:hover:not(:disabled) { background: #eef1e9; }
+.tertiary:active:not(:disabled) { background: #e1e8dc; }
+.secondary.danger { color: #a43932; border-color: #b6655e; }
+.secondary.danger:hover:not(:disabled) { background: #fff1ef; border-color: #a43932; }
+.secondary.danger:active:not(:disabled) { background: #f9ded9; }
+.destructive { background: #a43932; color: #fff; border-color: #a43932; }
+.destructive:hover:not(:disabled) { background: #892f29; border-color: #892f29; }
+.destructive:active:not(:disabled) { background: #70251f; border-color: #70251f; }
+.auth-google { background: #fff; color: #1f1f1f; border-color: #747775; }
+.primary:hover, .secondary:hover, .tertiary:hover, .destructive:hover { text-decoration: none; }
+.primary:focus-visible, .secondary:focus-visible, .tertiary:focus-visible,
+.destructive:focus-visible, .auth-google:focus-visible,
+[data-slot="button"]:focus-visible, [data-slot="dialog-close"]:focus-visible {
+  outline: 3px solid var(--button-focus);
+  outline-offset: 3px;
+}
+.primary:disabled, .secondary:disabled, .tertiary:disabled, .destructive:disabled,
+.auth-google:disabled, [data-slot="button"]:disabled {
+  opacity: 1;
+  background: #e7ebe5;
+  color: #596458;
+  border-color: #89998b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.primary[aria-busy="true"], .secondary[aria-busy="true"],
+.tertiary[aria-busy="true"], .destructive[aria-busy="true"] { cursor: progress; }
+.actions, .contribution-controls { gap: .75rem; }
+.actions .small, .contribution-controls .small, .topbar .secondary,
+.topbar > .secondary, .account-nav .small {
+  min-width: 44px; min-height: 44px; padding: .625rem .875rem; font-size: .875rem;
+}
+[data-slot="dialog-close"] {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: .5rem;
+}
+/* Reserve space for the close target instead of covering a long dialog title. */
+[data-slot="dialog-content"] > [data-slot="dialog-title"] { padding-right: 3rem; }
+a.nav-link {
+  display: inline-flex; align-items: center; gap: .375rem;
+  min-height: 44px; padding: .375rem .25rem;
+  color: #234c38; font-size: .875rem; font-weight: 500;
+  text-decoration: underline; text-underline-offset: .2em;
+}
+a.nav-link:hover { color: #193d2b; text-decoration-thickness: 2px; }
+@media (max-width: 640px) {
+  .primary, .secondary, .tertiary, .destructive, .auth-google,
+  .actions .small, .contribution-controls .small, .topbar .secondary,
+  .topbar > .secondary, .account-nav .small, [data-slot="button"],
+  [data-slot="alert-dialog-action"], [data-slot="alert-dialog-cancel"] { min-height: 48px; }
+  [data-slot="dialog-close"] { width: 48px; height: 48px; }
+  .account-nav { row-gap: .75rem; }
+  .account-nav .secondary { flex-basis: 100%; }
+  [data-slot="alert-dialog-footer"] { gap: .75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .primary, .secondary, .tertiary, .destructive, .auth-google, [data-slot="button"] { transition: none; }
+}
+
+/* Radix action/cancel slots replace the Button slot, so target them explicitly. */
+[data-slot="alert-dialog-cancel"] { color: #234c38; background: #fff; border-color: var(--button-border); }
+[data-slot="alert-dialog-cancel"]:hover:not(:disabled) { background: #eef1e9; border-color: #637967; }
+[data-slot="alert-dialog-cancel"]:active:not(:disabled) { background: #e1e8dc; }
+[data-slot="alert-dialog-action"][data-variant="destructive"] { background: #a43932; color: #fff; border-color: #a43932; }
+[data-slot="alert-dialog-action"][data-variant="destructive"]:hover:not(:disabled) { background: #892f29; border-color: #892f29; }
+[data-slot="alert-dialog-action"][data-variant="destructive"]:active:not(:disabled) { background: #70251f; border-color: #70251f; }
+[data-slot="alert-dialog-action"]:focus-visible, [data-slot="alert-dialog-cancel"]:focus-visible { outline: 3px solid var(--button-focus); outline-offset: 3px; }
+[data-slot="alert-dialog-action"]:disabled, [data-slot="alert-dialog-cancel"]:disabled {
+  opacity: 1; background: #e7ebe5; color: #596458; border-color: #89998b; cursor: not-allowed;
+}
