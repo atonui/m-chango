@@ -369,3 +369,64 @@ body { background: var(--background); color: var(--foreground); }
 .fundraiser-progress::-webkit-progress-value, .fundraiser-progress::-moz-progress-bar { background: #f5d84e; }
 .check-label input { accent-color: #0f5965; }
 .notice { background: #eff8f4; border-color: #d7e7e1; color: #46666b; }
+
+
+/* M-Chango warm palette: eggshell, vanilla, taupe, and a restrained red accent. */
+:root {
+  --background: #faf7f2;
+  --foreground: #342f2c;
+  --card: #ffffff;
+  --card-foreground: #342f2c;
+  --popover: #ffffff;
+  --popover-foreground: #342f2c;
+  --primary: #b7473f;
+  --primary-foreground: #ffffff;
+  --secondary: #f2e4ca;
+  --secondary-foreground: #51463f;
+  --muted: #f5efe6;
+  --muted-foreground: #6f6259;
+  --accent: #f2e4ca;
+  --accent-foreground: #51463f;
+  --border: #e7ddd0;
+  --input: #cbbdaf;
+  --ring: #9c403a;
+  --sidebar: #f7f1e9;
+  --sidebar-foreground: #342f2c;
+  --sidebar-primary: #b7473f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f2e4ca;
+  --sidebar-accent-foreground: #51463f;
+  --sidebar-border: #e7ddd0;
+  --sidebar-ring: #9c403a;
+  --button-border: #9b8b7e;
+  --button-focus: #8f3935;
+}
+body { background: var(--background); color: var(--foreground); }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline-color: #8f3935; }
+.brand-mark { background: #b7473f; color: #fff8ef; }
+.brand-note, .intro-copy, .trust-note, .field-note, .fine-print, .muted,
+.public-purpose, .site-footer, .account-email, .signin-shell .panel > p,
+.entry-table th, .entry-meta, .empty-state, .stat small { color: #6f6259; }
+.eyebrow, .private-label, .intro h1 em { color: #a5423c; }
+.primary { background: #b7473f; color: #fff; border-color: #a63f38; }
+.primary:hover:not(:disabled) { background: #a63f38; border-color: #923832; }
+.primary:active:not(:disabled) { background: #923832; border-color: #7e302c; }
+.secondary { color: #51463f; border-color: #9b8b7e; }
+.secondary:hover:not(:disabled), .tertiary:hover:not(:disabled),
+[data-slot="alert-dialog-cancel"]:hover:not(:disabled) { background: #f2e4ca; border-color: #806f63; }
+.secondary:active:not(:disabled), .tertiary:active:not(:disabled),
+[data-slot="alert-dialog-cancel"]:active:not(:disabled) { background: #e9d6b5; }
+.tertiary, a.nav-link { color: #51463f; }
+a.nav-link:hover { color: #8f3935; }
+.stat.main { background: #51463f; border-color: #51463f; color: #fff; }
+.stat.main small, .progress-label { color: #f2e4ca; }
+.badge { background: #f2e4ca; color: #51463f; }
+.notice { background: #f5efe6; border-color: #e7ddd0; color: #51463f; }
+.check-label input { accent-color: #b7473f; }
+.fundraiser-progress { accent-color: #e5bd72; }
+.fundraiser-progress::-webkit-progress-value, .fundraiser-progress::-moz-progress-bar { background: #e5bd72; }
+.whatsapp-sample { border-color: #e7ddd0; }
+.removed-entry { background: #f5efe6; }
+.onboarding-steps b { background: #f2e4ca; color: #51463f; }
+.admin-release code, .admin-ops-grid div, .admin-section-list span { background: #f5efe6; }
+.admin-section-list span { color: #51463f; }
